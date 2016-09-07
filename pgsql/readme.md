@@ -26,3 +26,8 @@ pg_dump > backup.sql
 ```sql
 select datid,datname,pid,usename,client_addr,state,query from pg_stat_activity;
 ```
+
+#### show database size
+```sql
+SELECT datname, pg_size_pretty(pg_database_size(datname)) db_size FROM pg_database where datname <> 'rdsadmin';
+```
