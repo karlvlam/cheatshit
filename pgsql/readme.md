@@ -11,6 +11,7 @@ REVOKE ALL ON SCHEMA public FROM public;
 GRANT usage ON SCHEMA public TO my_user;
 
 GRANT select,insert,update ON ALL TABLES IN SCHEMA public TO my_user;
+GRANT usage, select ON ALL SEQUENCES IN SCHEMA public TO my_user;
 
 ```
 
