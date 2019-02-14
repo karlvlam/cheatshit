@@ -3,7 +3,7 @@
 ```sql
 CREATE USER my_user WITH PASSWORD 'abcd1234';
 
-CREATE DATABASE my_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.utf8' LC_CTYPE = 'en_US.utf8';
+CREATE DATABASE my_db WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8';
 
 \c my_db
 REVOKE ALL ON SCHEMA public FROM public;
