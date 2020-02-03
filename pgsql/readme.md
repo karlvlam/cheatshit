@@ -38,3 +38,16 @@ SELECT datname, pg_size_pretty(pg_database_size(datname)) db_size FROM pg_databa
 CREATE USER my_user WITH PASSWORD 'abcd1234';
 ALTER USER my_user WITH PASSWORD 'new_password';
 ```
+#### create read-only role, and add login user to it
+```sql
+CREATE ROLE database_ro;
+GRANT connect ON DATABASE my_database TO database_ro;
+\c my_database 
+GRANT USAGE ON schema public TO database_ro;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO database_ro;
+GRANT USAGE , SELECT ON ALL SEQUENCES IN SCHEMA public TO database_ro;
+
+
+CREATE USER app_user_ro WITH PASSWORD 'abcd1234';
+GRANT database_ro TO app_user_ro;
+```
