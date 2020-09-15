@@ -51,3 +51,8 @@ GRANT USAGE , SELECT ON ALL SEQUENCES IN SCHEMA public TO database_ro;
 CREATE USER app_user_ro WITH PASSWORD 'abcd1234';
 GRANT database_ro TO app_user_ro;
 ```
+
+### list privileges of a user
+```sql
+select * from information_schema.role_table_grants where grantee = 'my_user' ;
+```
