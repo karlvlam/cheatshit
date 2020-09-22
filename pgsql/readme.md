@@ -56,3 +56,10 @@ GRANT database_ro TO app_user_ro;
 ```sql
 select * from information_schema.role_table_grants where grantee = 'my_user' ;
 ```
+
+### export/import CSV
+```sql
+\copy (select * from my_table) to './my_table.csv' with CSV;
+\copy my_table from './my_table.csv' DELIMITER ',' with CSV HEADER;
+\copy my_table from './my_table.tsv' DELIMITER E'\t' with CSV HEADER;
+```
