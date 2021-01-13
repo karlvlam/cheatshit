@@ -63,3 +63,13 @@ select * from information_schema.role_table_grants where grantee = 'my_user' ;
 \copy my_table from './my_table.csv' DELIMITER ',' CSV [HEADER];
 \copy my_table from './my_table.tsv' DELIMITER E'\t' CSV [HEADER];
 ```
+
+### replication slots
+
+```sql
+SELECT redo_lsn, slot_name,restart_lsn,active,
+round((redo_lsn-restart_lsn) / 1024 / 1024 / 1024, 2) AS GB_behind
+FROM pg_control_checkpoint(), pg_replication_slots;
+
+select pg_drop_replication_slot('slot_name');
+```
