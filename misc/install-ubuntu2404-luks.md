@@ -1,6 +1,13 @@
 # Install Ubuntu 24.04 with LUKS partition 
 
-1. Install ubuntu as usual
+## Why?
+
+They insist using flutter installer without enough testing, which ends up with this shit!
+
+https://bugs.launchpad.net/ubuntu-desktop-provision/+bug/2060678
+
+
+### 1. Install ubuntu as usual
 
 ```
 /dev/sda1 /boot/efi vfat
@@ -8,15 +15,15 @@
 /dev/sda3 / ext4
 ```
 
-2. install cryptsetup on the new system
+### 2. install cryptsetup on the new system
 
 ```bash
 apt install cryptsetup
 ```
 
-3. Start system with liveCD/USB
+### 3. Start system with liveCD/USB
 
-4. Back the root directory
+### 4. Back the root directory
 
 ```bash
 mount /dev/sda3 /data/root
@@ -27,7 +34,7 @@ rsync -axHAWXS --numeric-ids --info=progress2 /data/root /data/backup
 umount /data/root
 ```
 
-5. Format the original root partition into LUKS encrypted device
+### 5. Format the original root partition into LUKS encrypted device
 
 ```bash
 cryptsetup luksFormat /dev/sda3
@@ -35,7 +42,8 @@ cryptsetup luksOpen /dev/sda3 sda3_crypt
 
 mkfs.ext4 /dev/mapper/sda3_crypt 
 ```
-6. Restore backup files to the newly encrypted partition 
+
+### 6. Restore backup files to the newly encrypted partition 
 
 ```bash
 mount /dev/mapper/sda3_crypt /data/root
@@ -43,7 +51,7 @@ mount /dev/mapper/sda3_crypt /data/root
 rsync -axHAWXS --numeric-ids --info=progress2 /data/backup/ /data/root
 ```
 
-7. Update `/etc/crypttab`
+### 7. Update `/etc/crypttab`
 
 ```bash
 # get the UUID of the LUKS root partition
@@ -59,7 +67,7 @@ vim /data/root/etc/crypttab
 sda3_crypt UUID=(LUKS physical partition UUID) none luks,discard
 ```
 
-8. Update `/etc/fstab`
+### 8. Update `/etc/fstab`
 
 ```bash
 vim /data/root/etc/fstab
@@ -70,7 +78,7 @@ vim /data/root/etc/fstab
 /dev/mapper/sda3_crypt /               ext4    errors=remount-ro 0       1
 ```
 
-9. Update /etc/default/cryptdisks
+### 9. Update /etc/default/cryptdisks
 
 ```bash
 vim /data/root/etc/default/cryptdisks
@@ -84,7 +92,7 @@ CRYPTDISKS_CHECK=blkid
 
 
 
-10. Create chroot and update the boot images 
+### 10. Create chroot and update the boot images 
 
 Mount /boot, /boot/efi, /proc, /sys, /dev, /dev/pts, /run
 
@@ -99,6 +107,7 @@ mount --bind /run /data/root/run
 ```
 
 chroot and update the images
+
 ```bash
 chroot /data/root/
 
