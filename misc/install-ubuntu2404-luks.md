@@ -6,14 +6,15 @@ They insist using flutter installer without enough testing, which ends up with t
 
 https://bugs.launchpad.net/ubuntu-desktop-provision/+bug/2060678
 
+### 0. Disk partition
+
+| Partation | Mount point | Size | File System | Desciption |
+| --- | --- | --- | --- |
+| /sda1 | /boot/efi | 128M | FAT32 | UEFI files, 128M is enough |
+| /sda2 | /boot| 1024M | EXT4 | Kernel images |
+| /sda3 | / | >= 20GB | EXT4 | System root |
 
 ### 1. Install ubuntu as usual
-
-```
-/dev/sda1 /boot/efi vfat
-/dev/sda2 /boot ext4
-/dev/sda3 / ext4
-```
 
 ### 2. install cryptsetup on the new system
 
@@ -23,7 +24,7 @@ apt install cryptsetup
 
 ### 3. Start system with liveCD/USB
 
-### 4. Back the root directory
+### 4. Backup the root directory to another disk/partition
 
 ```bash
 mount /dev/sda3 /data/root
