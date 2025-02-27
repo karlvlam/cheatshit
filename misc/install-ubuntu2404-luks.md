@@ -9,7 +9,7 @@ https://bugs.launchpad.net/ubuntu-desktop-provision/+bug/2060678
 ### 0. Disk partition
 
 | Partation | Mount point | Size | File System | Desciption |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | /sda1 | /boot/efi | 128M | FAT32 | UEFI files, 128M is enough |
 | /sda2 | /boot| 1024M | EXT4 | Kernel images |
 | /sda3 | / | >= 20GB | EXT4 | System root |
